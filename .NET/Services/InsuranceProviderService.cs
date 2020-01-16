@@ -1,15 +1,6 @@
-﻿using Sabio.Data;
-using Sabio.Data.Providers;
-using Sabio.Models;
-using Sabio.Models.Domain;
-using Sabio.Models.Requests;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Text;
 
-namespace Sabio.Services
+
+namespace Services
 {
     public class InsuranceProviderService : IInsuranceProviderService
     {
