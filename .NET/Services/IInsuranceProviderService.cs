@@ -1,9 +1,9 @@
-﻿using Sabio.Models;
-using Sabio.Models.Domain;
-using Sabio.Models.Requests;
+﻿using Models;
+using Models.Domain;
+using Models.Requests;
 using System.Collections.Generic;
 
-namespace Sabio.Services
+namespace Services
 {
     public interface IInsuranceProviderService
     {
