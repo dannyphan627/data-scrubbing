@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SendGrid;
-using SendGrid.Helpers.Mail;
-using System.Threading.Tasks;
-using Sabio.Services.Interfaces;
-using Sabio.Models.Domain;
-using Newtonsoft.Json;
-using Sabio.Models.Domain.Email;
-using Microsoft.Extensions.Options;
-using Sabio.Models.Requests;
-using System.IO;
-using Sabio.Models;
 
-namespace Sabio.Services
+
+namespace Services
 {
     public class EmailService : IEmailService
     {
