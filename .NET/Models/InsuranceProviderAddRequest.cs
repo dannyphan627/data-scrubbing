@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace Sabio.Models.Requests
+
+namespace Models.Requests
 {
     public class InsuranceProviderAddRequest
     { 
