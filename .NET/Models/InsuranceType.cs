@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Sabio.Models.Domain
+namespace Models.Domain
 {
     public class InsuranceType
     {
