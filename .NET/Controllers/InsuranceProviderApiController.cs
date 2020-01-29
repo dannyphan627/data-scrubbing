@@ -1,16 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Models;
-using Models.Domain;
-using Models.Requests;
-using Services;
-using Web.Controllers;
-using Web.Models.Responses;
 
 namespace Web.Api.Controllers
 {
