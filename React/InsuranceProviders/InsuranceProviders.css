@@ -1,0 +1,98 @@
+.card-title-header {
+  font-size: 1rem;
+  color: #ffffff;
+  padding: 2px;
+  border: 1px;
+}
+
+.card-footer {
+  background-color: #ffffff;
+}
+
+.searchBar {
+  height: 100%;
+  display: inline-block;
+}
+
+.search-bar-height {
+  height: 100%;
+  float: right;
+}
+
+.fileCardButtonRow {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  margin-left: -19px;
+}
+
+.footerBtn {
+  display: flex;
+}
+
+.insuranceHeader {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.insuranceBody {
+  text-align: center;
+}
+
+.insuranceBodyContainer {
+  position: relative;
+  margin-bottom: -3vh;
+  padding-left: 19px;
+}
+
+.insuranceUrl {
+  text-align: center;
+  font-size: 0.75rem;
+}
+
+.searchBtn {
+  float: right;
+}
+
+.topCard {
+  background-color: #414755;
+}
+
+.topBar {
+  padding-bottom: 30px;
+}
+
+@media (max-width: 1023px) {
+  .insuranceBodyContainer {
+    position: relative;
+    margin-bottom: 3vh;
+    padding-left: 16px;
+  }
+}
+
+/* @media (min-width: 1024px) and (max-width: 1199px) {
+  .insuranceBodyContainer {
+    position: relative;
+    margin-bottom: 3vh;
+    padding-left: 21px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1299px) {
+  .insuranceBodyContainer {
+    position: relative;
+    margin-bottom: 10vh;
+    padding-left: 19px;
+  }
+}
+
+@media (min-width: 1300px) {
+  .insuranceBodyContainer {
+    position: relative;
+    margin-bottom: 4vh;
+    padding-left: 19px;
+  }
+} */
