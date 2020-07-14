@@ -1,0 +1,93 @@
+//Tokens generated when the user first registers on the site
+//This allows for email and user confirmation
+
+//Insert
+ALTER PROC [dbo].[UserTokens_InsertV2]
+		@Token		VARCHAR(200),
+		@UserId		INT,
+		@TokenType	INT
+
+AS
+/*
+		DECLARE
+				@_token		VARCHAR(200) = 'tokenid',
+				@_userId	INT = 4,
+				@_tokenType INT = 2
+
+		EXEC dbo.UserTokens_Insert
+				@_token OUTPUT,
+				@_userId,
+				@_tokenType
+
+		SELECT *
+		FROM dbo.UserTokens
+*/
+BEGIN
+
+		INSERT INTO [dbo].[UserTokens]
+				   ([Token]
+				   ,[UserId]
+				   ,[TokenType])
+			 VALUES
+				   (@Token
+				   ,@UserId
+				   ,@TokenType)
+
+END
+
+//Select User By Token
+ALTER PROC [dbo].[UserTokens_Select_ByTokenV4] @Token VARCHAR(200)
+												
+AS
+
+/*
+		DECLARE
+				@_token VARCHAR(200) = '8727f97e-df6f-4486-916b-2f4c496fa1f2'
+
+		EXEC dbo.UserTokens_Select_ByTokenV3
+				@_token
+
+		Select *
+		From dbo.UserTokens
+		Where [Token] = @_token
+*/
+
+    BEGIN
+        SET XACT_ABORT ON;
+        DECLARE @Tran NVARCHAR(50)= '_UserTokens';
+        BEGIN TRY
+            BEGIN TRANSACTION @Tran;
+				DECLARE @UserId INT;
+			
+				SET @UserId =(SELECT [UserId]
+							FROM [dbo].[UserTokens] 
+							WHERE [Token] = @Token)
+
+				IF @UserId > 0
+					BEGIN
+						SELECT [UserId]
+								,[TokenType]
+						From [dbo].[UserTokens]
+						WHERE [UserId] = @UserId
+					END
+
+            COMMIT TRANSACTION @Tran;
+        END TRY
+        BEGIN CATCH
+            IF(XACT_STATE()) = -1
+                BEGIN
+                    PRINT 'The transaction is in an uncommittable state.' + ' Rolling back transaction.';
+                    ROLLBACK TRANSACTION @Tran;
+            END;
+
+           
+            IF(XACT_STATE()) = 1
+                BEGIN
+                    PRINT 'The transaction is committable.' + ' Committing transaction.';
+                    COMMIT TRANSACTION @Tran;
+            END;
+
+            THROW;
+        END CATCH;
+        SET XACT_ABORT OFF;
+    END;
