@@ -1,0 +1,192 @@
+//Insert Proc
+ALTER PROC [dbo].[InsuranceProviders_Insert]
+		@Name nvarchar(200)
+		,@SiteUrl nvarchar(255) = null
+		,@CreatedBy int
+		,@Id int OUTPUT
+
+as
+
+/*
+
+		Declare @Name nvarchar(200) = 'Geico'
+				,@SiteUrl nvarchar(255) = 'https://www.geico.com/'
+				,@CreatedBy int = 1		
+				,@Id int = 0
+
+		Execute [dbo].[InsuranceProviders_Insert]
+				@Name
+				,@SiteUrl
+				,@CreatedBy		
+				,@Id OUTPUT
+
+		SELECT * FROM [dbo].[InsuranceProviders]
+
+*/
+
+BEGIN
+
+		INSERT INTO [dbo].[InsuranceProviders] (
+					[Name]
+				   ,[SiteUrl]
+				   ,[CreatedBy]
+				   ,[ModifiedBy]
+				   )
+			 VALUES (
+					 @Name
+					,@SiteUrl
+					,@CreatedBy
+					,@CreatedBy
+					)
+
+		SET @Id = SCOPE_IDENTITY();
+
+END
+
+//Search Proc
+ALTER proc [dbo].[InsuranceProviders_Search]
+								@Query nvarchar(100)
+								,@pageSize int
+								,@pageIndex int
+
+
+as
+/*
+
+DECLARE @Query nvarchar(100) = 'Health'
+		,@pageSize int = 5
+		,@pageIndex int = 0
+
+Execute dbo.InsuranceProviders_Search @Query
+										,@pageSize
+										,@pageIndex
+
+*/
+
+Begin
+
+	Declare @offset int = @pageSize * @pageIndex
+
+	SELECT [Id]
+		  ,[Name]
+		  ,[SiteUrl]
+		  ,[CreatedBy]
+		  ,[ModifiedBy]
+		  ,[DateCreated]
+		  ,[DateModified]
+		  ,TotalCount = COUNT(1) OVER()
+	  FROM [dbo].[InsuranceProviders]
+	  WHERE ([Name] LIKE '%' + @Query + '%')
+
+	  ORDER BY [Id]
+	  OFFSET @offset ROWS
+	  FETCH NEXT @pageSize ROWS ONLY
+
+End
+
+//Select by Id Proc
+ALTER PROC [dbo].[InsuranceProviders_Select_ById]
+		@Id int
+
+as
+
+/*
+
+DECLARE      @Id int = 1
+
+Execute [dbo].[InsuranceProviders_Select_ById] 
+		@Id
+
+*/
+
+BEGIN
+
+		SELECT [Id]
+			  ,[Name]
+			  ,[SiteUrl]
+			  ,[Logo]
+			  ,[CreatedBy]
+			  ,[ModifiedBy]
+			  ,[DateCreated]
+			  ,[DateModified]
+		  FROM [dbo].[InsuranceProviders] 
+
+		WHERE [Id] = @Id
+		ORDER BY [Id]
+
+END
+
+//Update Proc
+ALTER PROC [dbo].[InsuranceProviders_Update]
+		@Id int
+		,@Name nvarchar(200)
+		,@SiteUrl nvarchar(255) = null
+		,@Logo nvarchar(255) = null
+		,@ModifiedBy int
+
+as
+
+/*
+
+		Declare @Name nvarchar(200) = 'GEICO'
+				,@SiteUrl nvarchar(255) = 'https://www.geico.com/'
+				,@Logo nvarchar(255) = 'https://eac-network.org/wp-content/uploads/2016/05/GEICO-Logo-for-Sponsors-Edited-Version-if-Needed.png'
+				,@ModifiedBy int = 1
+				,@Id int = 1
+
+		SELECT * FROM [dbo].[InsuranceProviders]
+		WHERE Id = @Id
+
+		Execute [dbo].[InsuranceProviders_Update]
+				@Id
+				,@Name
+				,@SiteUrl
+				,@Logo
+				,@ModifiedBy
+
+		SELECT * FROM [dbo].[InsuranceProviders]
+		WHERE Id = @Id
+
+*/
+
+BEGIN
+
+		DECLARE @DateModified datetime2(7) = GETUTCDATE()
+
+		UPDATE [dbo].[InsuranceProviders]
+				   SET [DateModified] = @DateModified
+					  ,[Name] = @Name
+					  ,[SiteUrl] = @SiteUrl
+					  ,[Logo] = @Logo
+					  ,[ModifiedBy] = @ModifiedBy
+				 WHERE Id = @Id
+
+END
+
+//Delete Proc 
+ALTER PROC [dbo].[InsuranceProviders_Delete_ById]
+		@Id int
+
+as
+
+/*
+
+	Declare @Id int = 1
+
+	SELECT * FROM [dbo].[InsuranceProviders]
+	WHERE Id = @Id
+
+	Execute [dbo].[InsuranceProviders_Delete_ById]
+		@Id
+
+	SELECT * FROM [dbo].[InsuranceProviders]
+	WHERE Id = @Id
+
+*/
+
+BEGIN
+
+		DELETE FROM [dbo].[InsuranceProviders]
+		WHERE Id = @Id
+
+END
